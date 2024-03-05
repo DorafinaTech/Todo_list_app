@@ -74,12 +74,19 @@ class _AddTaskState extends State<AddTask> {
                     style: GoogleFonts.roboto(fontSize: 18),
                   ),
                   onPressed: () async {
-                    await addTaskToFirebase();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
+                    bool taskAdded = await addTaskToFirebase();
+                    if (taskAdded) {
+                      Navigator.pop(context);
+                    } else {}
                   },
+
+                  // onPressed: () async {
+                  //   await addTaskToFirebase();
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => Home()),
+                  //   );
+                  // },
                 ),
                 // onPressed: () {
                 //   Home();
