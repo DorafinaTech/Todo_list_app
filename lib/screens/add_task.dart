@@ -74,11 +74,31 @@ class _AddTaskState extends State<AddTask> {
                     style: GoogleFonts.roboto(fontSize: 18),
                   ),
                   onPressed: () async {
-                    bool taskAdded = await addTaskToFirebase();
-                    if (taskAdded) {
-                      Navigator.pop(context);
-                    } else {}
+                    try {
+                      // Try to add the task to Firebase
+                      await addTaskToFirebase();
+
+                      // If successful, pop back to the Home screen
+                      // This assumes that the Home screen is the root of your navigation stack
+                      // or at least present in the stack.
+                      Navigator.of(context).pop();
+                    } catch (error) {
+                      // If an error occurs, show an error message
+                      // You might want to show a dialog or a snackbar with the error
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Error adding task: $error'),
+                        ),
+                      );
+                    }
                   },
+
+                  // onPressed: () async {
+                  //   bool taskAdded = await addTaskToFirebase();
+                  //   if (taskAdded) {
+                  //     Navigator.pop(context);
+                  //   } else {}
+                  // },
 
                   // onPressed: () async {
                   //   await addTaskToFirebase();
